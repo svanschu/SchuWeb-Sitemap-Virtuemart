@@ -62,40 +62,65 @@ class SchuWeb_SitemapViewSitemaps extends JViewLegacy
     protected function addToolbar()
     {
         $state = $this->get('State');
-        $doc = JFactory::getDocument();
+        $doc = \JFactory::getDocument();
 
-        JToolBarHelper::addNew('sitemap.add');
-        JToolBarHelper::custom('sitemap.edit', 'edit.png', 'edit_f2.png', 'JTOOLBAR_EDIT', true);
+        \JToolBarHelper::addNew('sitemap.add');
+        \JToolBarHelper::custom('sitemap.edit', 'edit.png', 'edit_f2.png', 'JTOOLBAR_EDIT', true);
 
         $doc->addStyleDeclaration('.icon-48-sitemap {background-image: url(components/com_schuweb_sitemap/images/sitemap-icon.png);}');
-        JToolBarHelper::title(JText::_('SCHUWEB_SITEMAP_SITEMAPS_TITLE'), 'sitemap.png');
-        JToolBarHelper::custom('sitemaps.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_Publish', true);
-        JToolBarHelper::custom('sitemaps.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+        \JToolBarHelper::title(JText::_('SCHUWEB_SITEMAP_SITEMAPS_TITLE'), 'sitemap.png');
+        \JToolBarHelper::custom('sitemaps.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_Publish', true);
+        \JToolBarHelper::custom('sitemaps.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 
-        JToolBarHelper::custom('sitemaps.setdefault', 'featured.png', 'featured_f2.png', 'SCHUWEB_SITEMAP_TOOLBAR_SET_DEFAULT', true);
+        \JToolBarHelper::custom('sitemaps.setdefault', 'featured.png', 'featured_f2.png', 'SCHUWEB_SITEMAP_TOOLBAR_SET_DEFAULT', true);
 
         if ($state->get('filter.published') == -2) {
-            JToolBarHelper::deleteList('', 'sitemaps.delete', 'JTOOLBAR_DELETE');
+            \JToolBarHelper::deleteList('', 'sitemaps.delete', 'JTOOLBAR_DELETE');
         } else {
-            JToolBarHelper::trash('sitemaps.trash', 'JTOOLBAR_TRASH');
+            \JToolBarHelper::trash('sitemaps.trash', 'JTOOLBAR_TRASH');
         }
-        JToolBarHelper::divider();
+        \JToolBarHelper::divider();
 
 
-        if (class_exists('JHtmlSidebar')) {
-            JHtmlSidebar::addFilter(
-                JText::_('JOPTION_SELECT_PUBLISHED'),
-                'filter_published',
-                JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
-            );
+        if (class_exists('JHtmlSidebar')){
+            if (version_compare("4", JVERSION,'ge')) {
+                JHtmlSidebar::addFilter(
+                    \JText::_('JOPTION_SELECT_PUBLISHED'),
+                    'filter_published',
+                    JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
+                );
 
-            JHtmlSidebar::addFilter(
-                JText::_('JOPTION_SELECT_ACCESS'),
-                'filter_access',
-                JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
-            );
+                JHtmlSidebar::addFilter(
+                    \JText::_('JOPTION_SELECT_ACCESS'),
+                    'filter_access',
+                    JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
+                );
+            }
 
             $this->sidebar = JHtmlSidebar::render();
         }
+    }
+
+    /**
+     * Returns an array of fields the table can be sorted by
+     *
+     * @return  array  Array containing the field name to sort by as the key and display text as value
+     *
+     * @since   3.0
+     */
+    protected function getSortFields()
+    {
+        return array(
+            'a.ordering'     => \JText::_('JGRID_HEADING_ORDERING'),
+            'a.state'        => \JText::_('JSTATUS'),
+            'a.title'        => \JText::_('JGLOBAL_TITLE'),
+            'category_title' => \JText::_('JCATEGORY'),
+            'access_level'   => \JText::_('JGRID_HEADING_ACCESS'),
+            'a.created_by'   => \JText::_('JAUTHOR'),
+            'language'       => \JText::_('JGRID_HEADING_LANGUAGE'),
+            'a.created'      => \JText::_('JDATE'),
+            'a.id'           => \JText::_('JGRID_HEADING_ID'),
+            'a.featured'     => \JText::_('JFEATURED')
+        );
     }
 }
