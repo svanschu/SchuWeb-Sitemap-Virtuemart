@@ -6,7 +6,7 @@
  * @author           Sven Schultschik (extensions.schultschik.com)
  */
 
-namespace Joomla\Component\SchuWebSitemap\Administrator\Controller;
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Controller;
 
 // no direct access
 defined('_JEXEC') or die;

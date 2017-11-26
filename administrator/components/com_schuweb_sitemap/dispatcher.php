@@ -24,5 +24,5 @@ class Schuweb_SitemapDispatcher extends Dispatcher
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $namespace = 'Joomla\\Component\\SchuWebSitemap';
+	protected $namespace = 'Joomla\\Component\\Schuweb_Sitemap';
 }

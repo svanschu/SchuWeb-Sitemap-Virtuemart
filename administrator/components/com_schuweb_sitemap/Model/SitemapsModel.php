@@ -6,7 +6,7 @@
  * @author        Guillermo Vargas (guille@vargas.co.cr)
  */
 
-namespace Joomla\Component\SchuWebSitemap\Administrator\Model;
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Model;
 
 // no direct access
 defined('_JEXEC') or die;

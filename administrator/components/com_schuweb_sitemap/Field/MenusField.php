@@ -7,7 +7,7 @@
  * @author           Guillermo Vargas
  */
 
-namespace Joomla\Component\Content\Administrator\Field;
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Field;
 
 defined('_JEXEC') or die;
 
