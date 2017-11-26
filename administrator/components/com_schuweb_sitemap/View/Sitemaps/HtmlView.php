@@ -1,22 +1,26 @@
 <?php
 /**
  * @version     $Id$
+ * @copyright   Copyright (C) 2017 - 2018 Schultschik Websolution. All rights reserved.
  * @copyright   Copyright (C) 2007 - 2009 Joomla! Vargas. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Sven Schultschik (extensions.schultschik.com)
  * @author      Guillermo Vargas (guille@vargas.co.cr)
  */
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\View\Sitemaps;
 
 // no direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\Component\Schuweb_Sitemap\Administrator\Helper\SitemapHelper;
 
 /**
- * @package     SchuWeb Sitemap
- * @subpackage  com_schuweb_sitemap
- * @since       2.0
+ * View class for a list of articles.
+ *
+ * @since  1.6
  */
-class SchuWeb_SitemapViewSitemaps extends JViewLegacy
+class HtmlView extends BaseHtmlView
 {
     protected $state;
     protected $items;
@@ -28,7 +32,7 @@ class SchuWeb_SitemapViewSitemaps extends JViewLegacy
     public function display($tpl = null)
     {
         if ($this->getLayout() !== 'modal') {
-            SchuWeb_SitemapHelper::addSubmenu('sitemaps');
+            SitemapHelper::addSubmenu('sitemaps');
         }
 
         $this->state = $this->get('State');
@@ -37,12 +41,12 @@ class SchuWeb_SitemapViewSitemaps extends JViewLegacy
 
         $message = $this->get('ExtensionsMessage');
         if ($message) {
-            JFactory::getApplication()->enqueueMessage($message);
+            \JFactory::getApplication()->enqueueMessage($message);
         }
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
-            JFactory::$application->enqueueMessage(implode("\n", $errors), 'error');
+            \JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -68,7 +72,7 @@ class SchuWeb_SitemapViewSitemaps extends JViewLegacy
         \JToolBarHelper::custom('sitemap.edit', 'edit.png', 'edit_f2.png', 'JTOOLBAR_EDIT', true);
 
         $doc->addStyleDeclaration('.icon-48-sitemap {background-image: url(components/com_schuweb_sitemap/images/sitemap-icon.png);}');
-        \JToolBarHelper::title(JText::_('SCHUWEB_SITEMAP_SITEMAPS_TITLE'), 'sitemap.png');
+        \JToolBarHelper::title(\JText::_('SCHUWEB_SITEMAP_SITEMAPS_TITLE'), 'sitemap.png');
         \JToolBarHelper::custom('sitemaps.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_Publish', true);
         \JToolBarHelper::custom('sitemaps.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 
@@ -84,20 +88,20 @@ class SchuWeb_SitemapViewSitemaps extends JViewLegacy
 
         if (class_exists('JHtmlSidebar')){
             if (version_compare("4", JVERSION,'ge')) {
-                JHtmlSidebar::addFilter(
+                \JHtmlSidebar::addFilter(
                     \JText::_('JOPTION_SELECT_PUBLISHED'),
                     'filter_published',
-                    JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
+                    \JHtml::_('select.options', \JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
                 );
 
-                JHtmlSidebar::addFilter(
+                \JHtmlSidebar::addFilter(
                     \JText::_('JOPTION_SELECT_ACCESS'),
                     'filter_access',
-                    JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
+                    \JHtml::_('select.options', \JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
                 );
             }
 
-            $this->sidebar = JHtmlSidebar::render();
+            $this->sidebar = \JHtmlSidebar::render();
         }
     }
 
