@@ -6,17 +6,21 @@
  * @author      Guillermo Vargas (guille@vargas.co.cr)
  */
 
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Controller;
+
 // No direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controllerform');
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\MVC\Controller\FormController;
 
 /**
  * @package     SchuWeb Sitemap
  * @subpackage  com_schuweb_sitemap
  * @since       2.0
  */
-class SchuWeb_SitemapControllerSitemap extends JControllerForm
+class SitemapController extends FormController
 {
     /**
      * Method override to check if the user can edit an existing record.
@@ -30,8 +34,9 @@ class SchuWeb_SitemapControllerSitemap extends JControllerForm
     {
         // Initialise variables.
         $recordId = (int) isset($data[$key]) ? $data[$key] : 0;
+        $user = \JFactory::getUser();
 
         // Assets are being tracked, so no need to look into the category.
-        return JFactory::getUser()->authorise('core.edit', 'com_schuweb_sitemap.sitemap.'.$recordId);
+        return $user->authorise('core.edit', 'com_schuweb_sitemap.sitemap.'.$recordId);
     }
 }

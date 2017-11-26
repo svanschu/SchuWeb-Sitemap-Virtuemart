@@ -6,33 +6,34 @@
  * @author      Guillermo Vargas (guille@vargas.co.cr)
  */
 
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Helper;
 
 // No direct access
 defined('_JEXEC') or die;
 
 /**
- * Xmap component helper.
+ * SchuWeb Sitemap Helper
  *
- * @package     SchuWeb Sitemap
- * @subpackage  com_schuweb_sitemap
  * @since       2.0
  */
-class SchuWeb_SitemapHelper
+class SitemapHelper
 {
     /**
      * Configure the Linkbar.
      *
      * @param    string  The name of the active view.
+     *
+     * @since   1.6
      */
     public static function addSubmenu($vName)
     {
-        JHtmlSidebar::addEntry(
-            JText::_('SCHUWEB_SITEMAP_Submenu_Sitemaps'),
+        \JHtmlSidebar::addEntry(
+            \JText::_('SCHUWEB_SITEMAP_Submenu_Sitemaps'),
             'index.php?option=com_schuweb_sitemap',
             $vName == 'sitemaps'
         );
-        JHtmlSidebar::addEntry(
-            JText::_('SCHUWEB_SITEMAP_Submenu_Extensions'),
+        \JHtmlSidebar::addEntry(
+            \JText::_('SCHUWEB_SITEMAP_Submenu_Extensions'),
             'index.php?option=com_plugins&view=plugins&filter_folder=schuweb_sitemap',
             $vName == 'extensions');
     }
