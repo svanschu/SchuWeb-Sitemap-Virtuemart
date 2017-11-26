@@ -9,6 +9,7 @@
     <version>sw.build.version</version>
     <license>GNU/GPL</license>
     <description>SchuWeb Sitemap - Sitemap Generator for Joomla!</description>
+    <namespace>Joomla\Component\SchuWebSitemap</namespace>
     <install folder="admin">
         <sql>
             <file driver="mysql" charset="utf8">install/install.utf8.sql</file>
@@ -48,18 +49,20 @@
     <administration>
         <menu img="components/com_schuweb_sitemap/images/xmap-favicon.png">com_schuweb_sitemap_TITLE</menu>
         <files folder="admin">
-            <filename>schuweb_sitemap.php</filename>
+            <filename>dispatcher.php</filename>
             <filename>controller.php</filename>
             <filename>index.html</filename>
             <filename>LICENSE.txt</filename>
+            <folder>Controller</folder>
             <folder>css</folder>
+            <folder>Field</folder>
+            <folder>forms</folder>
+            <folder>helpers</folder>
             <folder>images</folder>
             <folder>install</folder>
-            <folder>helpers</folder>
-            <folder>controllers</folder>
+            <folder>Model</folder>
             <folder>tables</folder>
             <folder>views</folder>
-            <folder>models</folder>
         </files>
         <languages folder="admin/language">
             <language tag="en-GB">en-GB/en-GB.com_schuweb_sitemap.ini</language>

@@ -5,20 +5,23 @@
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @author        Guillermo Vargas (guille@vargas.co.cr)
  */
+
+namespace Joomla\Component\SchuWebSitemap\Administrator\Model;
+
 // no direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-jimport('joomla.database.query');
+use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Sitemaps Model Class
  *
- * @package         Xmap
+ * @package         SchuWeb_Sitemap
  * @subpackage      com_schuweb_sitemap
  * @since           2.0
  */
-class SchuWeb_SitemapModelSitemaps extends JModelList
+class SitemapsModel extends ListModel
 {
     /**
      * Constructor.
@@ -56,13 +59,18 @@ class SchuWeb_SitemapModelSitemaps extends JModelList
     /**
      * Method to auto-populate the model state.
      *
+     * @param   string  $ordering   An optional ordering field.
+     * @param   string  $direction  An optional direction (asc|desc).
+     *
      * @since       2.0
      */
     protected function populateState($ordering = null, $direction = null)
     {
+        $app = \JFactory::getApplication();
+
         // Adjust the context to support modal layouts.
-        if ($layout = JFactory::$application->input->getVar('layout')) {
-            $this->context .= '.'.$layout;
+        if ($layout = $app->input->get('layout')) {
+            $this->context .= '.' . $layout;
         }
 
         $access = $this->getUserStateFromRequest($this->context.'.filter.access', 'filter_access', 0, 'int');
@@ -88,6 +96,8 @@ class SchuWeb_SitemapModelSitemaps extends JModelList
      * @param   string      $id A prefix for the store id.
      *
      * @return  string      A store id.
+     *
+     * @since 2.0
      */
     protected function getStoreId($id = '')
     {
@@ -103,6 +113,8 @@ class SchuWeb_SitemapModelSitemaps extends JModelList
      * @param       boolean True to join selected foreign information
      *
      * @return      string
+     *
+     * @since 2.0
      */
     protected function getListQuery($resolveFKs = true)
     {
@@ -171,7 +183,7 @@ class SchuWeb_SitemapModelSitemaps extends JModelList
                 $sep = ', ';
             }
 
-            return JText::sprintf('SCHUWEB_SITEMAP_MESSAGE_EXTENSIONS_DISABLED',$extensionsNameList);
+            return \JText::sprintf('SCHUWEB_SITEMAP_MESSAGE_EXTENSIONS_DISABLED',$extensionsNameList);
         } else {
             return "";
         }

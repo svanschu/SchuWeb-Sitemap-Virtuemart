@@ -1,14 +1,19 @@
 <?php
 /**
  * @version          $Id$
- * @copyright        Copyright (C) 2007 - 2009 Joomla! Vargas. All rights reserved.
+ * @copyright        Copyright (C) 2017 - 2018 Schultschik Websolutions. All rights reserved.
  * @license          GNU General Public License version 2 or later; see LICENSE.txt
- * @author           Guillermo Vargas (guille@vargas.co.cr)
+ * @author           Sven Schultschik (extensions.schultschik.com)
+ * @author           Guillermo Vargas
  */
+
+namespace Joomla\Component\Content\Administrator\Field;
+
 defined('_JEXEC') or die;
 
-jimport('joomla.html.html');
-require_once JPATH_LIBRARIES . '/joomla/form/fields/list.php';
+use Joomla\CMS\Plugin\PluginHelper;
+
+\JFormHelper::loadFieldClass('list');
 
 /**
  * Menus Form Field class for the Xmap Component
@@ -17,7 +22,7 @@ require_once JPATH_LIBRARIES . '/joomla/form/fields/list.php';
  * @subpackage   com_schuweb_sitemap
  * @since        2.0
  */
-class JFormFieldSchuWeb_Sitemapmenus extends JFormFieldList
+class MenusField extends \JFormFieldList
 {
 
     /**
@@ -34,7 +39,7 @@ class JFormFieldSchuWeb_Sitemapmenus extends JFormFieldList
      */
     protected function _getOptions()
     {
-        $db = JFactory::getDbo();
+        $db = \JFactory::getDbo();
         $query = $db->getQuery(true);
 
         //$currentMenus = array_keys(get_object_vars($this->value));
@@ -98,12 +103,12 @@ class JFormFieldSchuWeb_Sitemapmenus extends JFormFieldList
         $value = $this->value;
         if (!is_array($value)) {
             // Convert the selections field to an array.
-            $registry = new JRegistry;
+            $registry = new \JRegistry;
             $registry->loadString($value);
             $value = $registry->toArray();
         }
 
-        $doc = JFactory::getDocument();
+        $doc = \JFactory::getDocument();
         $doc->addScriptDeclaration("
         window.addEvent('domready',function(){
             \$\$('div.schuwebsitemap-menu-options select').addEvent('mouseover',function(event){schuwebsitemapMenusSortable.detach();})
