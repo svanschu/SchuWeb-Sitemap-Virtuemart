@@ -1,22 +1,19 @@
 <?php
 /**
  * @version             $Id$
- * @copyright           Copyright (C) 2016 - 2017 Sven Schultschik. All rights reserved.
- * @copyright           Copyright (C) 2007 - 2009 Joomla! Vargas. All rights reserved.
+ * @copyright           Copyright (C) 2016 - 2018 Sven Schultschik. All rights reserved.
  * @license             GNU General Public License version 2 or later; see LICENSE.txt
  * @author              Sven Schultschik (https://extensions.schultschik.com)
- * @author              Guillermo Vargas (guille@vargas.co.cr)
  */
+
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\View\Sitemap;
+
 // no direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 
-/**
- * @package    Xmap
- * @subpackage com_schuweb_sitemap
- */
-class SchuWeb_SitemapViewSitemap extends JViewLegacy
+class HtmlView extends BaseHtmlView
 {
 
     protected $item;
@@ -31,12 +28,10 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
      */
     function display($tpl = null)
     {
-        $app = JFactory::getApplication();
+        $app = \JFactory::getApplication();
         $this->state = $this->get('State');
         $this->item = $this->get('Item');
         $this->form = $this->get('Form');
-
-        $version = new JVersion;
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
@@ -44,11 +39,11 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
             return false;
         }
 
-        JHTML::stylesheet('administrator/components/com_schuweb_sitemap/css/xmap.css');
+        \JHTML::stylesheet('administrator/components/com_schuweb_sitemap/css/xmap.css');
         // Convert dates from UTC
         $offset = $app->get('offset');
         if (intval($this->item->created)) {
-            $this->item->created = JHtml::date($this->item->created, '%Y-%m-%d %H-%M-%S', $offset);
+            $this->item->created = \JHtml::date($this->item->created, '%Y-%m-%d %H-%M-%S', $offset);
         }
 
         $this->handleMenues();
@@ -90,7 +85,7 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
     function navigator($tpl = null)
     {
         require_once(JPATH_COMPONENT_SITE . '/helpers/schuweb_sitemap.php');
-        $app = JFactory::getApplication();
+        $app = \JFactory::getApplication();
         $this->state = $this->get('State');
         $this->item = $this->get('Item');
 
@@ -102,8 +97,8 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
             return false;
         }
 
-        JHTML::script('mootree.js', 'media/system/js/');
-        JHTML::stylesheet('mootree.css', 'media/system/css/');
+        \JHTML::script('mootree.js', 'media/system/js/');
+        \JHTML::stylesheet('mootree.css', 'media/system/css/');
 
         $this->loadTemplate('class');
         $displayer = new XmapNavigatorDisplayer($this->state->params, $this->item);
@@ -113,7 +108,7 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
 
     function navigatorLinks($tpl = null)
     {
-        $input = JFactory::$application->input;
+        $input = \JFactory::$application->input;
 
         require_once(JPATH_COMPONENT_SITE . '/helpers/schuweb_sitemap.php');
         $link = urldecode($input->getVar('link', ''));
@@ -122,8 +117,8 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
 
         $this->item = $this->get('Item');
         $this->state = $this->get('State');
-        $menuItems = SchuWeb_SitemapHelper::getMenuItems($this->item->selections);
-        $extensions = SchuWeb_SitemapHelper::getExtensions();
+        $menuItems = \SchuWeb_SitemapHelper::getMenuItems($this->item->selections);
+        $extensions = \SchuWeb_SitemapHelper::getExtensions();
 
         $this->loadTemplate('class');
         $nav = new XmapNavigatorDisplayer($this->state->params, $this->item);
@@ -192,18 +187,18 @@ class SchuWeb_SitemapViewSitemap extends JViewLegacy
      */
     function _setToolbar()
     {
-        $user = JFactory::getUser();
+        $user = \JFactory::getUser();
         $isNew = ($this->item->id == 0);
 
-        JToolBarHelper::title(JText::_('SCHUWEB_SITEMAP_PAGE_' . ($isNew ? 'ADD_SITEMAP' : 'EDIT_SITEMAP')), 'article-add.png');
+        \JToolBarHelper::title(\JText::_('SCHUWEB_SITEMAP_PAGE_' . ($isNew ? 'ADD_SITEMAP' : 'EDIT_SITEMAP')), 'article-add.png');
 
-        JToolBarHelper::apply('sitemap.apply', 'JTOOLBAR_APPLY');
-        JToolBarHelper::save('sitemap.save', 'JTOOLBAR_SAVE');
-        JToolBarHelper::save2new('sitemap.save2new');
+        \JToolBarHelper::apply('sitemap.apply', 'JTOOLBAR_APPLY');
+        \JToolBarHelper::save('sitemap.save', 'JTOOLBAR_SAVE');
+        \JToolBarHelper::save2new('sitemap.save2new');
         if (!$isNew) {
-            JToolBarHelper::save2copy('sitemap.save2copy');
+            \JToolBarHelper::save2copy('sitemap.save2copy');
         }
-        JToolBarHelper::cancel('sitemap.cancel', 'JTOOLBAR_CLOSE');
+        \JToolBarHelper::cancel('sitemap.cancel', 'JTOOLBAR_CLOSE');
     }
 
 }

@@ -1,21 +1,19 @@
 <?php
 /**
- * @version       $Id$
- * @copyright     Copyright (C) 2007 - 2009 Joomla! Vargas. All rights reserved.
- * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @author        Guillermo Vargas (guille@vargas.co.cr)
+ * @version             $Id$
+ * @copyright           Copyright (C) 2016 - 2018 Sven Schultschik. All rights reserved.
+ * @license             GNU General Public License version 2 or later; see LICENSE.txt
+ * @author              Sven Schultschik (https://extensions.schultschik.com)
  */
+
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Table;
+
 // no direct access
 defined('_JEXEC') or die;
 
 use Joomla\Utilities\ArrayHelper;
 
-/**
- * @package         Xmap
- * @subpackage      com_schuweb_sitemap
- * @since           2.0
- */
-class SchuWeb_SitemapTableSitemap extends JTable
+class SitemapTable extends \JTable
 {
 
     /**
@@ -103,10 +101,10 @@ class SchuWeb_SitemapTableSitemap extends JTable
     /**
      * @param    JDatabase    A database connector object
      */
-    function __construct(&$db)
-    {
-        parent::__construct('#__schuweb_sitemap', 'id', $db);
-    }
+//    function __construct(&$db)
+//    {
+//        parent::__construct('#__schuweb_sitemap', 'id', $db);
+//    }
 
     /**
      * Overloaded bind function

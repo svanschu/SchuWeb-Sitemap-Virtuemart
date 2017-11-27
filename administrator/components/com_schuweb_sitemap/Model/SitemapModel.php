@@ -1,25 +1,26 @@
 <?php
 /**
- * @version      $Id$
- * @copyright    Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
- * @license      GNU General Public License version 2 or later; see LICENSE.txt
+ * @version             $Id$
+ * @copyright           Copyright (C) 2016 - 2018 Sven Schultschik. All rights reserved.
+ * @license             GNU General Public License version 2 or later; see LICENSE.txt
+ * @author              Sven Schultschik (https://extensions.schultschik.com)
  */
+
+namespace Joomla\Component\Schuweb_Sitemap\Administrator\Model;
 
 // No direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
-
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
- * Sitemap model.
+ * Item Model for an Sitemap
  *
- * @package       Xmap
- * @subpackage    com_schuweb_sitemap
+ * @since  1.6
  */
-class SchuWeb_SitemapModelSitemap extends JModelAdmin
+class SitemapModel extends AdminModel
 {
     protected $_context = 'com_schuweb_sitemap';
 
@@ -65,7 +66,7 @@ class SchuWeb_SitemapModelSitemap extends JModelAdmin
      */
     public function getTable($type = 'Sitemap', $prefix = 'SchuWeb_SitemapTable', $config = array())
     {
-        return JTable::getInstance($type, $prefix, $config);
+        return \JTable::getInstance($type, $prefix, $config);
     }
 
     /**
