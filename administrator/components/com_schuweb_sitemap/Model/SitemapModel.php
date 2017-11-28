@@ -57,16 +57,19 @@ class SitemapModel extends AdminModel
     }
 
     /**
-     * Returns a Table object, always creating it.
+     * Returns a reference to the a Table object, always creating it.
      *
-     * @param    type                The table type to instantiate
-     * @param    string              A prefix for the table class name. Optional.
-     * @param    array               Configuration array for model. Optional.
-     * @return   XmapTableSitemap    A database object
+     * @param   string  $type    The table type to instantiate
+     * @param   string  $prefix  A prefix for the table class name. Optional.
+     * @param   array   $config  Configuration array for model. Optional.
+     *
+     * @return  Table  A Table object
+     *
+     * @since   1.6
      */
-    public function getTable($type = 'Sitemap', $prefix = 'SchuWeb_SitemapTable', $config = array())
+	public function getTable($type = 'Sitemap', $prefix = 'SchuWeb_SitemapTable', $config = array())
     {
-        return \JTable::getInstance($type, $prefix, $config);
+        return parent::getTable($type, $prefix, $config);
     }
 
     /**
@@ -80,13 +83,9 @@ class SitemapModel extends AdminModel
     {
         // Initialise variables.
         $pk = (!empty($pk)) ? $pk : (int)$this->getState('sitemap.id');
-        $false = false;
 
         // Get a row instance.
         $table = $this->getTable();
-
-        // Attempt to load the row.
-        $return = $table->load($pk);
 
         // Prime required properties.
         if (empty($table->id)) {

@@ -12,10 +12,10 @@ namespace Joomla\Component\Schuweb_Sitemap\Administrator\Table;
 defined('_JEXEC') or die;
 
 use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Table\Table;
 
-class SitemapTable extends \JTable
+class SitemapTable extends Table
 {
-
     /**
      * @var int Primary key
      */
