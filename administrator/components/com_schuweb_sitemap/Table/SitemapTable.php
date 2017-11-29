@@ -101,10 +101,10 @@ class SitemapTable extends Table
     /**
      * @param    JDatabase    A database connector object
      */
-//    function __construct(&$db)
-//    {
-//        parent::__construct('#__schuweb_sitemap', 'id', $db);
-//    }
+    function __construct(&$db)
+    {
+        parent::__construct('#__schuweb_sitemap', 'id', $db);
+    }
 
     /**
      * Overloaded bind function

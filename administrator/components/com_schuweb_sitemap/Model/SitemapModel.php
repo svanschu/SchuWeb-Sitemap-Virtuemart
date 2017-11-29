@@ -97,13 +97,13 @@ class SitemapModel extends AdminModel
         $value = ArrayHelper::toObject($value, 'JObject');
 
         // Convert the params field to an array.
-        $registry = new JRegistry;
+        $registry = new \JRegistry;
         $registry->loadString($table->attribs);
         $value->attribs = $registry->toArray();
 
         $item = parent::getItem($pk);
 
-        $item->selections = new Registry($item->selections);
+        $item->selections = new \JRegistry($item->selections);
         $item->selections = $item->selections->toArray();
 
         return $item;
@@ -137,7 +137,7 @@ class SitemapModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = JFactory::getApplication()->getUserState('com_schuweb_sitemap.edit.sitemap.data', array());
+        $data = \JFactory::getApplication()->getUserState('com_schuweb_sitemap.edit.sitemap.data', array());
 
         if (empty($data)) {
             $data = $this->getItem();
@@ -238,7 +238,7 @@ class SitemapModel extends AdminModel
     {
         $table = $this->getTable();
         if ($table->load($id)) {
-            $db = JFactory::getDbo();
+            $db = \JFactory::getDbo();
             $query = $db->getQuery(true)
                 ->update($db->quoteName('#__schuweb_sitemap'))
                 ->set($db->quoteName('is_default') . ' = 0')
@@ -249,7 +249,7 @@ class SitemapModel extends AdminModel
             $table->store();
 
             // Clean the cache.
-            $cache = JFactory::getCache('com_schuweb_sitemap');
+            $cache = \JFactory::getCache('com_schuweb_sitemap');
             $cache->clean();
             return true;
         }
@@ -257,7 +257,7 @@ class SitemapModel extends AdminModel
 
     public function getMenues()
     {
-        $db = JFactory::getDbo();
+        $db = \JFactory::getDbo();
         $query = $db->getQuery(true)
             ->select('m.*')
             ->from('#__menu_types AS m')
@@ -277,7 +277,7 @@ class SitemapModel extends AdminModel
 
     private function getDefaultSitemapId()
     {
-        $db = JFactory::getDBO();
+        $db = \JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('id');
         $query->from($db->quoteName('#__schuweb_sitemap'));
