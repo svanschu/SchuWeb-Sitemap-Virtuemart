@@ -59,15 +59,15 @@ class SitemapModel extends AdminModel
     /**
      * Returns a reference to the a Table object, always creating it.
      *
-     * @param   string  $type    The table type to instantiate
-     * @param   string  $prefix  A prefix for the table class name. Optional.
-     * @param   array   $config  Configuration array for model. Optional.
+     * @param   string $type The table type to instantiate
+     * @param   string $prefix A prefix for the table class name. Optional.
+     * @param   array $config Configuration array for model. Optional.
      *
      * @return  Table  A Table object
      *
      * @since   1.6
      */
-	public function getTable($type = 'Sitemap', $prefix = 'SchuWeb_SitemapTable', $config = array())
+    public function getTable($type = 'Sitemap', $prefix = 'SchuWeb_SitemapTable', $config = array())
     {
         return parent::getTable($type, $prefix, $config);
     }
@@ -96,10 +96,12 @@ class SitemapModel extends AdminModel
         $value = $table->getProperties(1);
         $value = ArrayHelper::toObject($value, 'JObject');
 
-        // Convert the params field to an array.
-        $registry = new \JRegistry;
-        $registry->loadString($table->attribs);
-        $value->attribs = $registry->toArray();
+        if (!empty($table->attribs)) {
+            // Convert the params field to an array.
+            $registry = new \JRegistry;
+            $registry->loadString($table->attribs);
+            $value->attribs = $registry->toArray();
+        }
 
         $item = parent::getItem($pk);
 
