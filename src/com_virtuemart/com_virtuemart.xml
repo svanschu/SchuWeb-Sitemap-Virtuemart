@@ -3,9 +3,9 @@
 	<name>SchuWeb Sitemap - Virtuemart Plugin</name>
 	<author>Sven Schultschik</author>
 	<creationDate>sw.build.date</creationDate>
-	<copyright>GNU GPL</copyright>
-	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorUrl>extensions.schultschik.com</authorUrl>
+	<copyright>Copyright (C) 2019 - 2023 Sven Schultschik. All rights reserved</copyright>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3</license>
+	<authorUrl>extensions.schultschik.de</authorUrl>
 	<version>sw.build.version</version>
 	<description>SCHUWEB_SITEMAP_VM_PLUGIN_DESCRIPTION</description>
 	<files>
